@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mx-auto w-50 justify-content-between navbar-content">
             <li class="nav-item active">
-                <a class="nav-link current" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link <%=currentHome%>" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Archive</a>
@@ -18,10 +18,11 @@
                 <a class="nav-link" href="#">Category</a>
             </li>
             <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                    aria-expanded="false">Pages</a>
+                <a href="#" class="nav-link dropdown-toggle <%=currentBlogDetails%>" data-toggle="dropdown"
+                    role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item"><a class="nav-link" href="blog-details.html">Blog Details</a></li>
+                    <li class="nav-item"><a class="nav-link <%=currentBlogDetails%>" href="/blogDetails">Blog
+                            Details</a></li>
                 </ul>
             </li>
             <li class="nav-item">

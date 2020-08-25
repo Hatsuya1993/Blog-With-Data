@@ -27,6 +27,16 @@ today = mm + "/" + dd + "/" + yyyy;
 app.get("/home", (req, res) => {
   res.render("home", {
     today,
+    currentHome: 'current',
+    currentBlogDetails: '',
+  });
+});
+
+app.get("/blogDetails", (req, res) => {
+  res.render("blogDetails", {
+    today,
+    currentBlogDetails: 'current',
+    currentHome: '',
   });
 });
 

@@ -17,8 +17,10 @@ body {
     width: 100px;
 }
 
-.fab:hover {
+.fab:hover,
+.fas:hover {
     color: rgb(255, 153, 7) !important;
+    cursor: pointer;
 }
 
 .pages {
@@ -63,3 +65,64 @@ body {
 }
 
 /* latest */
+
+/* post */
+
+.post-img {
+    background-image: url("https://images.pexels.com/photos/1008739/pexels-photo-1008739.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 55vh;
+    position: relative;
+}
+
+.post-img-content {
+    position: absolute;
+    bottom: 0;
+}
+
+.post-title a {
+    text-decoration: none;
+    color: black;
+}
+
+/* post */
+
+/* options */
+
+.newsletter {
+    width: 100%;
+    padding: 30px;
+}
+
+.category {
+    width: 100%;
+    padding: 30px;
+}
+
+.popular-img {
+    background-image: url("https://images.pexels.com/photos/1008739/pexels-photo-1008739.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 30vh;
+    position: relative;
+}
+
+.popular-img-content {
+    position: absolute;
+    bottom: 0;
+}
+
+.options-title a {
+    text-decoration: none;
+    color: black;
+    transition: all 0.1s linear;
+}
+
+.options-title a:hover {
+    color: rgb(255, 153, 7) !important;
+}
+
+/* options */
