@@ -29,6 +29,9 @@ app.get("/home", (req, res) => {
     today,
     currentHome: 'current',
     currentBlogDetails: '',
+    title1: 'Tours & Travels',
+    title2: 'Amazing places on earth',
+    title3: today
   });
 });
 
@@ -37,6 +40,9 @@ app.get("/blogDetails", (req, res) => {
     today,
     currentBlogDetails: 'current',
     currentHome: '',
+    title1: '',
+    title2: 'Blog details',
+    title3: 'Home-Blog Details'
   });
 });
 

@@ -125,4 +125,25 @@ body {
     color: rgb(255, 153, 7) !important;
 }
 
+.popular2-content:hover {
+    background-color: black !important;
+}
+
+.popular2-content a:hover {
+    color: rgb(255, 153, 7) !important;
+}
+
+.popular2-content a {
+    text-decoration: none;
+    color: black;
+}
+
 /* options */
+
+/* blogInfo */
+
+.blogInfo img {
+    height: 400px;
+}
+
+/* blogInfo */
