@@ -1,57 +1,19 @@
 <section class="blogInfo container-fluid" id="blogInfo">
     <div class="container-fluid ">
-        <img class="w-100"
-            src="https://images.pexels.com/photos/675764/pexels-photo-675764.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            alt="">
-        <h1 class="w-75 py-3">Cartridge Is Better Than Ever
-            A Discount Toner</h1>
-        <div class="d-flex justify-content-between py-3 my-3">
-            <div class="d-flex w-25 justify-content-around">
-                <p class="text-uppercase bg-light my-auto p-2">lifestyle</p>
-                <p class="text-uppercase bg-light my-auto p-2">gadget</p>
-            </div>
-            <div class="d-flex">
+        <img class="w-100" src="<%=findBlog.image%>" alt="">
+        <h1 class="w-75 py-3"><%=findBlog.title%></h1>
+        <div class="py-3 my-3">
+            <div class="d-flex text-right justify-content-end">
                 <div class="px-2">
-                    <p class="text-right">Mark wiens</p>
-                    <p class="text-secondary">12 DEC, 2017 11:21 AM</p>
+                    <p class="text-right"><%=findBlog.name%></p>
+                    <p class="text-secondary"><%=findBlog.date%></p>
                 </div>
-                <img class="blogInfo-profile-pic h-100"
-                    src="https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
+                <img class="blogInfo-profile-pic h-100" src="<%=findBlog.userImg%>" alt="">
             </div>
         </div>
 
         <p class="text-secondary py-3">
-            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should
-            have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the
-            camp price. However, who has the willpower
-        </p>
-        <p class="text-secondary py-3">
-            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should
-            have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the
-            camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has
-            the willpower to actually sit through a self-imposed MCSE training.
-        </p>
-        <div class="p-3 my-3 bg-secondary">
-            <p class="p-4 bg-white blogInfo-para">
-                MCSE boot camps have its supporters and its detractors. Some people do not understand why you should
-                have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the
-                camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.
-            </p>
-        </div>
-        <p class="text-secondary py-3">
-            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should
-            have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of
-            the
-            camp price. However, who has the willpower
-        </p>
-        <p class="text-secondary py-3">
-            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should
-            have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of
-            the
-            camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who
-            has
-            the willpower to actually sit through a self-imposed MCSE training.
+            <%=findBlog.passage%>
         </p>
         <hr>
         <div class="d-flex justify-content-between">

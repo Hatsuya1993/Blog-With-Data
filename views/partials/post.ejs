@@ -1,94 +1,66 @@
 <section class="post container-fluid py-2" id="post">
     <div class="container-fluid">
+        <% for (var i = 0; i < products.length; i++) { %>
         <div class="container-fluid mb-5">
-            <div class="post-img">
+            <div class="post-img" style="background-image: url(<%=products[i].image%>);">
                 <div class="d-flex post-img-content bg-white w-50 justify-content-around py-3">
                     <div class="d-flex">
                         <i class="far fa-user my-auto"></i>
-                        <p class="my-auto px-2">Admin</p>
+                        <p class="my-auto px-2"><%=products[i].role%></p>
                     </div>
-                    <div class="d-flex">
-                        <i class="far fa-calendar-alt my-auto"></i>
-                        <p class="my-auto px-2">January 12,2019</p>
+                    <div class="d-flex text-center">
+                        <i class="far fa-calendar-alt my-auto pl-4"></i>
+                        <p class="my-auto px-2"><%=products[i].date%></p>
                     </div>
                     <div class="d-flex">
                         <i class="far fa-comment my-auto"></i>
-                        <p class="my-auto px-2">2 Comments</p>
+                        <p class="my-auto px-2"><%=products[i].comments%></p>
                     </div>
                 </div>
             </div>
             <div>
-                <h1 class="post-title"><a href="#">Woman claims husband wants to name baby girl after his ex-lover
-                        sparking.</a></h1>
-                <p>Over yielding doesn't so moved green saw meat hath fish he him from given yielding lesser cattle were
-                    fruitful lights. Given let have, lesser their made him above gathered dominion sixth. Creeping deep
-                    said can't called second. Air created seed heaven sixth created living</p>
-                <button type="button" class="btn btn-outline-dark">READ MORE <i class="fas fa-arrow-right"></i></button>
+                <h1 class="post-title"><a href="#"><%=products[i].title%></a></h1>
+                <p><%=products[i].passage.split(" ").splice(0,50).join(" ")+"..."%></p>
+                <button type="button" class="btn btn-outline-dark">
+                    <a href="/blog/<%=products[i].title%>">READ MORE </a>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
-        <div class="container-fluid mb-5">
-            <div class="post-img">
-                <div class="d-flex post-img-content bg-white w-50 justify-content-around py-3">
-                    <div class="d-flex">
-                        <i class="far fa-user my-auto"></i>
-                        <p class="my-auto px-2">Admin</p>
-                    </div>
-                    <div class="d-flex">
-                        <i class="far fa-calendar-alt my-auto"></i>
-                        <p class="my-auto px-2">January 12,2019</p>
-                    </div>
-                    <div class="d-flex">
-                        <i class="far fa-comment my-auto"></i>
-                        <p class="my-auto px-2">2 Comments</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h1 class="post-title"><a href="#">Woman claims husband wants to name baby girl after his
-                        ex-lover
-                        sparking.</a></h1>
-                <p>Over yielding doesn't so moved green saw meat hath fish he him from given yielding lesser
-                    cattle were
-                    fruitful lights. Given let have, lesser their made him above gathered dominion sixth.
-                    Creeping deep
-                    said can't called second. Air created seed heaven sixth created living</p>
-                <button type="button" class="btn btn-outline-dark">READ MORE <i class="fas fa-arrow-right"></i></button>
-            </div>
-        </div>
-        <div class="container-fluid mb-5">
-            <div class="post-img">
-                <div class="d-flex post-img-content bg-white w-50 justify-content-around py-3">
-                    <div class="d-flex">
-                        <i class="far fa-user my-auto"></i>
-                        <p class="my-auto px-2">Admin</p>
-                    </div>
-                    <div class="d-flex">
-                        <i class="far fa-calendar-alt my-auto"></i>
-                        <p class="my-auto px-2">January 12,2019</p>
-                    </div>
-                    <div class="d-flex">
-                        <i class="far fa-comment my-auto"></i>
-                        <p class="my-auto px-2">2 Comments</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h1 class="post-title"><a href="#">Woman claims husband wants to name baby girl after
-                        his ex-lover
-                        sparking.</a></h1>
-                <p>Over yielding doesn't so moved green saw meat hath fish he him from given yielding
-                    lesser cattle were
-                    fruitful lights. Given let have, lesser their made him above gathered dominion
-                    sixth. Creeping deep
-                    said can't called second. Air created seed heaven sixth created living</p>
-                <button type="button" class="btn btn-outline-dark">READ MORE <i class="fas fa-arrow-right"></i></button>
-            </div>
-        </div>
-        <div class="d-flex w-25 mx-auto justify-content-between">
-            <button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-left"></i></button>
-            <button type="button" class="btn btn-outline-dark current">1</button>
-            <button type="button" class="btn btn-outline-dark">2</button>
-            <button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-right"></i></button>
+        <% } %>
+        <div class="container-fluid w-25 mx-auto">
+            <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current == 1) { %>
+                <li class="disabled"><button type="button" class="btn btn-outline-dark"><a>First</a></button>
+                </li>
+                <% } else { %>
+                <li><button type="button" class="btn btn-outline-dark"><a href="/home/1">First</a></button></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                <li class="disabled"><button type="button" class="btn btn-outline-dark"><a>...</a></button></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                <li class="active"><button type="button" class="btn btn-outline-dark active"><a><%= i %></a></button>
+                </li>
+                <% } else { %>
+                <li><button type="button" class="btn btn-outline-dark"><a href="/home/<%= i %>"><%= i %></a></button>
+                </li>
+                <% } %>
+                <% if (i == Number(current) + 4 && i < pages) { %>
+                <li class="disabled"><button type="button" class="btn btn-outline-dark"><a>...</a></button></li>
+                <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                <li class="disabled"><button type="button" class="btn btn-outline-dark"><a>Last</a></button></li>
+                <% } else { %>
+                <li><button type="button" class="btn btn-outline-dark"><a href="/home/<%= pages %>">Last</a></button>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
         </div>
     </div>
 </section>

@@ -1,0 +1,36 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %>
+
+<div class="container-fluid">
+    <form action="/create" method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">User Image Link</label>
+            <input type="url" class="form-control" name="userImg" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="text" class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Role (User, Guide, Lead-Guide, Admin)</label>
+            <input type="text" class="form-control" name="Role" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Image Link</label>
+            <input type="url" class="form-control" name="image" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1"> Passage</label>
+            <textarea class="form-control" type="text" name="passage" id="exampleFormControlTextarea1"
+                rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+</div>
+
+<%- include("partials/bottom") %>
+<%- include("partials/footer") %>

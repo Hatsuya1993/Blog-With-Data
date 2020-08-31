@@ -69,7 +69,6 @@ body {
 /* post */
 
 .post-img {
-    background-image: url("https://images.pexels.com/photos/1008739/pexels-photo-1008739.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -85,6 +84,15 @@ body {
 .post-title a {
     text-decoration: none;
     color: black;
+}
+
+.post button a {
+    text-decoration: none;
+    color: black;
+}
+
+.post button:hover>a {
+    color: white;
 }
 
 /* post */
