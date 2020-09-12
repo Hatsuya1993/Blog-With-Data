@@ -1,69 +1,22 @@
 <div class="container-fluid latest py-3" id="latest">
     <div class="container-fluid">
         <div class="owl-carousel owl-theme py-3">
+            <%=console.log("latest",latest)%> <%for (let i = 0; i < latest.length; i++
+      ){ %>
             <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
+                <img src="<%=latest[i].image%>" alt="" />
+                <a href="/blog/<%=latest[i]._id%>">
+                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3 w-75">
+                        <%=latest[i].title%>
+                    </h6>
                 </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
+                <h6><%=latest[i].passage%></h6>
+                <h5 class="text-center mt-3">
+                    <%=latest[i].passage.split(" ").splice(0,10).join(" ")+"..."%>
+                </h5>
+                <h6>Created On <%=differentDays[i].yearMonthDayUTC%></h6>
             </div>
-            <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
-                </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
-            </div>
-            <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
-                </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
-            </div>
-            <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
-                </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
-            </div>
-            <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
-                </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
-            </div>
-            <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
-                </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
-            </div>
-            <div class="item text-center">
-                <img src="https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    alt="">
-                <a href="#">
-                    <h6 class="bg-dark text-center fashion py-2 mx-auto text-warning mt-3">Fashion</h6>
-                </a>
-                <h5 class="text-center mt-3">New york fashion week's continued the evolution</h5>
-                <p>2 days ago</p>
-            </div>
+            <% }%>
         </div>
     </div>
 </div>

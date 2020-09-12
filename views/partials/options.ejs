@@ -30,55 +30,17 @@
         </div>
         <div class="container-fluid bg-light popular py-5 my-4">
             <h4>Popular Post</h4>
+            <%for (let i = 0; i < popular.length; i++){    %>
+            <%=console.log("popular",popular[i].name)%>
+
             <div class="popular-img my-3">
                 <div class="d-flex bg-white popular-img-content p-2">
-                    <p class="my-auto">Adam Colinge</p>
-                    <p class="my-auto">|</p>
-                    <p class="my-auto">Dec 15</p>
+                    <p class="my-auto pr-3"><%=popular[i].name%></p>
+                    <p class="my-auto"><%=popular[i].date%></p>
                 </div>
             </div>
-            <h4 class="options-title"><a href="#">Accused of assaulting flight attendant miktake alaways</a></h4>
-            <div class="popular-img my-3">
-                <div class="d-flex bg-white popular-img-content p-2">
-                    <p class="my-auto">Adam Colinge</p>
-                    <p class="my-auto">|</p>
-                    <p class="my-auto">Dec 15</p>
-                </div>
-            </div>
-            <h4 class="options-title"><a href="#">Accused of assaulting flight attendant miktake alaways</a>
-            </h4>
-            <div class="popular-img my-3">
-                <div class="d-flex bg-white popular-img-content p-2">
-                    <p class="my-auto">Adam Colinge</p>
-                    <p class="my-auto">|</p>
-                    <p class="my-auto">Dec 15</p>
-                </div>
-            </div>
-            <h4 class="options-title"><a href="#">Accused of assaulting flight attendant miktake
-                    alaways</a></h4>
-        </div>
-        <div class="container-fluid bg-light popular2 py-5 my-4">
-            <h4>Popular Post</h4>
-            <div class="row">
-                <div class="col-lg-4 text-center bg-white m-3 px-0 popular2-content">
-                    <a href="#">
-                        <p class="m-0 py-2">project
-                        </p>
-                    </a>
-                </div>
-                <div class="col-lg-4 text-center bg-white m-3 px-0 popular2-content">
-                    <a href="#">
-                        <p class="m-0 py-2">project
-                        </p>
-                    </a>
-                </div>
-                <div class="col-lg-4 text-center bg-white m-3 px-0 popular2-content">
-                    <a href="#">
-                        <p class="m-0 py-2">project
-                        </p>
-                    </a>
-                </div>
-            </div>
+            <h4 class="options-title"><a href="#"><%=popular[i].title%></a></h4><%}%>
+
         </div>
     </div>
 </section>

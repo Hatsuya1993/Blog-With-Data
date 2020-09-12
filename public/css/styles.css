@@ -163,6 +163,15 @@ body {
     border-left: 2px solid blue;
 }
 
+.blogInfo .blogInfo-page-content a {
+    text-decoration: none;
+    color: black;
+}
+
+.blogInfo .blogInfo-page-content button:hover a {
+    color: white;
+}
+
 .next-content {
     position: relative;
 }

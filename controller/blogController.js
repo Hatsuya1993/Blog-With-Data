@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const Blog = require("../models/createBlog");
 
+const Comment = require("../models/createComment")
+
 const AppError = require("../utils/appError");
 
 const catchAsync = require("../utils/catchAsync");
@@ -14,16 +16,36 @@ const mm = String(today.getMonth() + 1).padStart(2, "0");
 
 const yyyy = today.getFullYear();
 
-today = mm + "/" + dd + "/" + yyyy;
+today = dd + "/" + mm + "/" + yyyy;
 
+// Display home page
 const home = catchAsync(async (req, res, next) => {
+  const latest = await Blog.find().sort([
+    ['date', -1]
+  ]).limit(10);
+  const popular = await Blog.find().sort([
+    ['likes', -1]
+  ]).limit(3);
+  const differentDays = await Blog.aggregate([{
+    $project: {
+      yearMonthDayUTC: {
+        $dateToString: {
+          format: "%Y-%m-%d",
+          date: "$date"
+        }
+      },
+    }
+  }])
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find().skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
     Blog.count().exec(function (err, count) {
       if (err) return next(err)
       res.render("home", {
+        popular,
+        latest,
         today,
+        differentDays,
         currentHome: "current",
         currentBlogDetails: "",
         currentCreate: "",
@@ -36,13 +58,13 @@ const home = catchAsync(async (req, res, next) => {
       });
     })
   });
-
 });
 
+// Display page for specific page
 const blogDetails = async (req, res) => {
-  const findBlog = await Blog.find({
-    title: req.params.blogId,
-  });
+  const findBlog = await Blog.findById(
+    req.params.blogId,
+  );
   res.render("blogDetails", {
     today,
     currentBlogDetails: "current",
@@ -55,6 +77,7 @@ const blogDetails = async (req, res) => {
   });
 };
 
+// Form to create new blog 
 const createBlog = catchAsync(async (req, res) => {
   res.render("create", {
     currentCreate: "current",
@@ -63,6 +86,7 @@ const createBlog = catchAsync(async (req, res) => {
   });
 });
 
+// Submit a new blog
 const submitBlog = catchAsync(async (req, res) => {
   await Blog.create({
     title: req.body.title,
@@ -76,25 +100,74 @@ const submitBlog = catchAsync(async (req, res) => {
   });
   res.status(201);
   res.redirect("home/1");
-  res.redirect("home/:blogId");
 });
 
-const blogId = catchAsync(async (req, res) => {
-  const findBlog = await Blog.find({
-    title: req.params.blogId,
+// Add a new like
+const numberOfLikes = catchAsync(async (req, res) => {
+  await Blog.update({
+    _id: req.params.blogId
+  }, {
+    $inc: {
+      "likes": 1
+    }
   });
-  res.render("blogDetails", {
-    today,
-    currentBlogDetails: "current",
-    currentHome: "",
-    currentCreate: "",
-    title1: "",
-    title2: "Blog details",
-    title3: "Home-Blog Details",
-    findBlog: findBlog[0],
+  res.status(201);
+  res.redirect("back")
+})
+
+// Submit the comment for the specific blog
+const submitComment = catchAsync(async (req, res) => {
+  await Blog.update({
+    _id: req.params.blogId
+  }, {
+    $push: {
+      blogComments: {
+        name: req.body.name,
+        email: req.body.email,
+        subject: req.body.subject,
+        message: req.body.message,
+      } //inserted data is the object to be inserted 
+    }
   });
+  res.status(201);
+  res.redirect("back")
+})
+
+// Diplay specific blog
+const blogId = catchAsync(async (req, res, next) => {
+  const findBlog = await Blog.findById(
+    req.params.blogId,
+  );
+  const popular = await Blog.find().sort([
+    ['likes', -1]
+  ]).limit(3);
+  const perPage = 5;
+  const blogId = req.params.blogId;
+  const page = req.params.page || 1
+  await Comment.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
+    Comment.count().exec(function (err, count) {
+      if (err) return next(err)
+      res.render("blogDetails", {
+        popular,
+        blogId,
+        count,
+        products,
+        current: page,
+        pages: Math.ceil(count / perPage),
+        today,
+        currentBlogDetails: "current",
+        currentHome: "",
+        currentCreate: "",
+        title1: "",
+        title2: "Blog details",
+        title3: "Home-Blog Details",
+        findBlog
+      });
+    })
+  })
 });
 
+// Display error page if URL not found
 const error = async (req, res) => {
   res.render("errorPage", {
     url: req.originalUrl,
@@ -109,4 +182,6 @@ module.exports = {
   error,
   submitBlog,
   blogId,
+  submitComment,
+  numberOfLikes
 };

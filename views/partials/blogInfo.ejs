@@ -11,20 +11,22 @@
                 <img class="blogInfo-profile-pic h-100" src="<%=findBlog.userImg%>" alt="">
             </div>
         </div>
-
         <p class="text-secondary py-3">
             <%=findBlog.passage%>
         </p>
         <hr>
         <div class="d-flex justify-content-between">
-            <div class="d-flex w-25 justify-content-around">
-                <i class="far fa-heart"></i>
-                <p>Lily and 4 people like this</p>
-            </div>
+            <form action="/blog/likes/<%=findBlog._id%>" method="post">
+                <div class="d-flex w-100 justify-content-around">
+                    <button type="submit" class="btn btn-dark"><a href="href=/blog/<%=findBlog._id%>"><i
+                                class="far fa-heart"></i> </a> </button>
+                    <p class="my-auto ml-3"><%=findBlog.likes%> people like this</p>
+                </div>
+            </form>
             <div class="d-flex">
                 <i class="far fa-comment px-3"></i>
                 <p>
-                    06 Comments
+                    <%=count%> Comments
                 </p>
             </div>
             <div class="d-flex w-25 justify-content-around">
@@ -63,26 +65,66 @@
         </div>
         <hr>
         <div>
-            <h4>05 Comments</h4>
+            <h4><%=findBlog.blogComments.length%> Comments</h4>
         </div>
+        <%for (let i = 0; i < findBlog.blogComments.length; i++){%>
         <div class="d-flex py-4 justify-content-between">
             <div class="d-flex">
                 <img class="blogInfo-profile-pic h-75"
                     src="https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                     alt="">
                 <div class="px-3">
-                    <p>Emily Blunt</p>
-                    <p class="text-uppercase">DECEMBER 4, 2017 AT 3:12 PM</p>
-                    <p class="text-uppercase">Never say goodbye till the end comes!
+                    <p><%=findBlog.blogComments[i].name%></p>
+                    <p class="text-uppercase"></p>
+                    <p class="text-uppercase"><%=findBlog.blogComments[i].message%>
                     </p>
                 </div>
             </div>
             <p class="reply p-3 bg-light my-auto ">Reply</p>
         </div>
+        <% }%>
+        <!-- Start Pagination -->
+        <div class="blogInfo-page-content w-25 mx-auto">
+            <% if (pages > 0) { %>
+            <ul class="pagination">
+                <% if (current == 1) { %>
+                <li class="disabled"> <button type="button" class="btn btn-outline-dark"><a
+                            href="/blog/<%=blogId%>/1">First</a> </button></li>
+                <% } else { %>
+                <li> <button type="button" class="btn btn-outline-dark"><a href="/blog/<%=blogId%>/1">First</a></button>
+                </li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                <li class="disabled"><button type="button" class="btn btn-outline-dark"><a>...</a></button></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                <% if (i == current) { %>
+                <li class="active"> <button type="button" class="btn btn-outline-dark active "><a
+                            class="text-white"><%= i %></a>
+                    </button>
+                </li>
+                <% } else { %>
+                <li> <button type="button" class="btn btn-outline-dark"><a
+                            href="/blog/<%=blogId%>/<%= i %>"><%= i %></a></button></li>
+                <% } %>
+                <% if (i == Number(current) + 4 && i < pages) { %>
+                <li class="disabled"> <button type="button" class="btn btn-outline-dark"><a>...</a> </button></li>
+                <% } %>
+                <% } %>
+                <% if (current == pages) { %>
+                <li class="disabled"> <button type="button" class="btn btn-outline-dark"><a>Last</a> </button></li>
+                <% } else { %>
+                <li><button type="button" class="btn btn-outline-dark"><a href="/blog/<%=blogId%>/<%= pages %>">Last</a>
+                    </button></li>
+                <% } %>
+            </ul>
+        </div>
+        <% } %>
+        <!-- End Pagination -->
         <hr>
         <!-- Continue Here -->
-        <div class="container-fluid">
-            <%- include("reply") %>
-        </div>
+        <!-- <div class="container-fluid w-100">
+        </div> -->
     </div>
 </section>

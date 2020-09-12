@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <form action="/blog/comment/<%=findBlog._id%>" method="post">
+        <h4>Leave a reply</h4>
+        <div class="row mt-5">
+            <div class="col-lg-6">
+                <input class="w-100 bg-light border-0 p-2" type="text" name="name" placeholder="ENTER NAME">
+            </div>
+            <div class="col-lg-6">
+                <input class="w-100 bg-light border-0 p-2" type="text" name="email" placeholder="ENTER EMAIL ADDRESS">
+            </div>
+        </div>
+        <input type="text" class="w-100 mt-3 bg-light border-0 p-2" name="subject" placeholder="SUBJECT">
+        <textarea placeholder="MESSAGE" name="message" id="" class="w-100 mt-3 bg-light border-0 p-2"
+            rows="10"></textarea>
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+</div>
