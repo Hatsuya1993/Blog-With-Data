@@ -1,7 +1,7 @@
 <div class="container-fluid latest py-3" id="latest">
     <div class="container-fluid">
         <div class="owl-carousel owl-theme py-3">
-            <%=console.log("latest",latest)%> <%for (let i = 0; i < latest.length; i++
+            <%for (let i = 0; i < latest.length; i++
       ){ %>
             <div class="item text-center">
                 <img src="<%=latest[i].image%>" alt="" />
@@ -14,7 +14,7 @@
                 <h5 class="text-center mt-3">
                     <%=latest[i].passage.split(" ").splice(0,10).join(" ")+"..."%>
                 </h5>
-                <h6>Created On <%=differentDays[i].yearMonthDayUTC%></h6>
+                <h6>Created On <%=latest[i].dateCreated%></h6>
             </div>
             <% }%>
         </div>

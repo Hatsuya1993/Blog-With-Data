@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const {
+  db
+} = require("../models/createBlog");
 
 const Blog = require("../models/createBlog");
 
@@ -21,21 +24,11 @@ today = dd + "/" + mm + "/" + yyyy;
 // Display home page
 const home = catchAsync(async (req, res, next) => {
   const latest = await Blog.find().sort([
-    ['date', -1]
+    ['date', 1]
   ]).limit(10);
   const popular = await Blog.find().sort([
     ['likes', -1]
   ]).limit(3);
-  const differentDays = await Blog.aggregate([{
-    $project: {
-      yearMonthDayUTC: {
-        $dateToString: {
-          format: "%Y-%m-%d",
-          date: "$date"
-        }
-      },
-    }
-  }])
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find().skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
@@ -45,12 +38,38 @@ const home = catchAsync(async (req, res, next) => {
         popular,
         latest,
         today,
-        differentDays,
         currentHome: "current",
         currentBlogDetails: "",
         currentCreate: "",
         title1: "Tours & Travels",
         title2: "Amazing places on earth",
+        title3: today,
+        products,
+        current: page,
+        pages: Math.ceil(count / perPage)
+      });
+    })
+  });
+});
+
+// Display categories page
+const typeCategories = catchAsync(async (req, res, next) => {
+  const popular = await Blog.find().sort([
+    ['likes', -1]
+  ]).limit(3);
+  const perPage = 3;
+  const page = req.params.page || 1;
+  await Blog.find().skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
+    Blog.count().exec(function (err, count) {
+      if (err) return next(err)
+      res.render("typeCategories", {
+        popular,
+        today,
+        currentHome: "current",
+        currentBlogDetails: "",
+        currentCreate: "",
+        title1: "",
+        title2: req.params.type,
         title3: today,
         products,
         current: page,
@@ -97,6 +116,7 @@ const submitBlog = catchAsync(async (req, res) => {
     comments: 2,
     name: req.body.name,
     userImg: req.body.userImg,
+    categories: req.body.categories
   });
   res.status(201);
   res.redirect("home/1");
@@ -183,5 +203,6 @@ module.exports = {
   submitBlog,
   blogId,
   submitComment,
-  numberOfLikes
+  numberOfLikes,
+  typeCategories
 };

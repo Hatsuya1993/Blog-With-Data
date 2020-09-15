@@ -22,9 +22,6 @@ const blogSchema = new mongoose.Schema({
     default: "user",
     enum: ["user", "guide", "lead-guide", "admin"],
   },
-  date: {
-    type: Date,
-  },
   comments: {
     type: Number,
   },
@@ -41,6 +38,11 @@ const blogSchema = new mongoose.Schema({
   },
   dateCreated: {
     type: String,
+    default: today
+  },
+  date: {
+    type: Object,
+    default: new Date()
   },
   likes: {
     type: Number,
@@ -52,11 +54,11 @@ const blogSchema = new mongoose.Schema({
     subject: String,
     message: String,
   }],
-  // categories: {
-  //   type: String,
-  //   required: [true, "Please provide categories"],
-  //   enum: ["technology", "holiday", "education", "others"]
-  // }
+  categories: {
+    type: String,
+    required: [true, "Please provide categories"],
+    enum: ["technology", "holiday", "education", "others"]
+  }
 })
 const Blog = mongoose.model("Blog", blogSchema);
 

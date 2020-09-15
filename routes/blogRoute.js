@@ -8,7 +8,8 @@ const {
     submitBlog,
     blogId,
     submitComment,
-    numberOfLikes
+    numberOfLikes,
+    typeCategories
 } = require('../controller/blogController');
 
 const blogRoute = express.Router();
@@ -30,6 +31,8 @@ blogRoute.route('/blog/comment/:blogId').post(submitComment);
 blogRoute.route('/blogDetails').get(blogDetails);
 
 blogRoute.route('/comment').post(submitComment)
+
+blogRoute.route('/categories/:type').get(typeCategories)
 
 blogRoute.route('*').all(error);
 
