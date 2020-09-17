@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const {
-  db
-} = require("../models/createBlog");
 
 const Blog = require("../models/createBlog");
 
@@ -24,14 +21,16 @@ today = dd + "/" + mm + "/" + yyyy;
 // Display home page
 const home = catchAsync(async (req, res, next) => {
   const latest = await Blog.find().sort([
-    ['date', 1]
+    ['date', -1]
   ]).limit(10);
   const popular = await Blog.find().sort([
     ['likes', -1]
   ]).limit(3);
   const perPage = 3;
   const page = req.params.page || 1;
-  await Blog.find().skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
+  await Blog.find().sort([
+    ['date', -1]
+  ]).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
     Blog.count().exec(function (err, count) {
       if (err) return next(err)
       res.render("home", {
@@ -41,6 +40,7 @@ const home = catchAsync(async (req, res, next) => {
         currentHome: "current",
         currentBlogDetails: "",
         currentCreate: "",
+        currentContact: "",
         title1: "Tours & Travels",
         title2: "Amazing places on earth",
         title3: today,
@@ -57,23 +57,32 @@ const typeCategories = catchAsync(async (req, res, next) => {
   const popular = await Blog.find().sort([
     ['likes', -1]
   ]).limit(3);
+  const {
+    type
+  } = req.params
   const perPage = 3;
   const page = req.params.page || 1;
-  await Blog.find().skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
+  await Blog.find({
+    categories: req.params.type
+  }).sort([
+    ['date', -1]
+  ]).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
     Blog.count().exec(function (err, count) {
       if (err) return next(err)
       res.render("typeCategories", {
+        type,
         popular,
         today,
         currentHome: "current",
         currentBlogDetails: "",
         currentCreate: "",
+        currentContact: "",
         title1: "",
         title2: req.params.type,
         title3: today,
         products,
         current: page,
-        pages: Math.ceil(count / perPage)
+        pages: Math.floor(count / perPage)
       });
     })
   });
@@ -89,6 +98,7 @@ const blogDetails = async (req, res) => {
     currentBlogDetails: "current",
     currentHome: "",
     currentCreate: "",
+    currentContact: "",
     title1: "",
     title2: "Blog details",
     title3: "Home-Blog Details",
@@ -102,6 +112,7 @@ const createBlog = catchAsync(async (req, res) => {
     currentCreate: "current",
     currentBlogDetails: "",
     currentHome: "",
+    currentContact: "",
   });
 });
 
@@ -162,7 +173,9 @@ const blogId = catchAsync(async (req, res, next) => {
     ['likes', -1]
   ]).limit(3);
   const perPage = 5;
-  const blogId = req.params.blogId;
+  let {
+    blogId
+  } = req.params;
   const page = req.params.page || 1
   await Comment.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
     Comment.count().exec(function (err, count) {
@@ -178,12 +191,26 @@ const blogId = catchAsync(async (req, res, next) => {
         currentBlogDetails: "current",
         currentHome: "",
         currentCreate: "",
+        currentContact: "",
         title1: "",
         title2: "Blog details",
         title3: "Home-Blog Details",
         findBlog
       });
     })
+  })
+});
+
+// Display contact page
+const contactPage = catchAsync(async (req, res) => {
+  res.render("contactPage", {
+    currentHome: "",
+    currentBlogDetails: "",
+    currentCreate: "",
+    currentContact: "current",
+    title1: "",
+    title2: "Contact Us",
+    title3: "Contact Details",
   })
 });
 
@@ -204,5 +231,6 @@ module.exports = {
   blogId,
   submitComment,
   numberOfLikes,
-  typeCategories
+  typeCategories,
+  contactPage
 };

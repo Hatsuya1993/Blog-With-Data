@@ -18,7 +18,16 @@
                 <a class="nav-link" href="#">Category</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <!-- <a class="nav-link <%=currentContact%>" href="/contact">Contact</a> -->
+                <div class="dropdown">
+                    <a onclick="myFunction()" class="dropbtn my-auto nav-link">Categories</a>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="/categories/technology">Technology</a>
+                        <a href="/categories/holiday">Holiday</a>
+                        <a href="/categories/education">Education</a>
+                        <a href="/categories/others">Others</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link <%=currentCreate%>" href="/create">Create</a>
