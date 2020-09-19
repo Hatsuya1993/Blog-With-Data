@@ -14,6 +14,11 @@
         <p class="text-secondary py-3">
             <%=findBlog.passage%>
         </p>
+        <div class="container-fluid">
+            <form action="/blog/archive/<%=findBlog._id%>" method="post">
+                <button type="submit" class="btn btn-dark">Archive</button>
+            </form>
+        </div>
         <hr>
         <div class="d-flex justify-content-between">
             <form action="/blog/likes/<%=findBlog._id%>" method="post">
@@ -93,6 +98,7 @@
                 <% } %>
             </ul>
         </div>
+        <!-- End Pagination -->
         <% } %>
         <hr>
     </div>

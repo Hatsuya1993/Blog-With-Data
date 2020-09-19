@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-
 const Blog = require("../models/createBlog");
 
 const Comment = require("../models/createComment")
+
+const Archive = require("../models/archive")
 
 const AppError = require("../utils/appError");
 
@@ -214,6 +214,15 @@ const contactPage = catchAsync(async (req, res) => {
   })
 });
 
+// Archive 
+
+const archive = catchAsync(async (req, res) => {
+  await Archive.insertMany({
+    archiveItems: req.params.blogId
+  })
+  res.redirect("back")
+})
+
 // Display error page if URL not found
 const error = async (req, res) => {
   res.render("errorPage", {
@@ -232,5 +241,6 @@ module.exports = {
   submitComment,
   numberOfLikes,
   typeCategories,
-  contactPage
+  contactPage,
+  archive
 };
