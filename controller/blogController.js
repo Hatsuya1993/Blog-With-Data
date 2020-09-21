@@ -2,8 +2,6 @@ const Blog = require("../models/createBlog");
 
 const Comment = require("../models/createComment")
 
-const Archive = require("../models/archive")
-
 const AppError = require("../utils/appError");
 
 const catchAsync = require("../utils/catchAsync");
@@ -41,6 +39,7 @@ const home = catchAsync(async (req, res, next) => {
         currentBlogDetails: "",
         currentCreate: "",
         currentContact: "",
+        currentArchive: "",
         title1: "Tours & Travels",
         title2: "Amazing places on earth",
         title3: today,
@@ -77,6 +76,7 @@ const typeCategories = catchAsync(async (req, res, next) => {
         currentBlogDetails: "",
         currentCreate: "",
         currentContact: "",
+        currentArchive: "",
         title1: "",
         title2: req.params.type,
         title3: today,
@@ -99,6 +99,7 @@ const blogDetails = async (req, res) => {
     currentHome: "",
     currentCreate: "",
     currentContact: "",
+    currentArchive: "",
     title1: "",
     title2: "Blog details",
     title3: "Home-Blog Details",
@@ -113,6 +114,7 @@ const createBlog = catchAsync(async (req, res) => {
     currentBlogDetails: "",
     currentHome: "",
     currentContact: "",
+    currentArchive: "",
   });
 });
 
@@ -127,7 +129,8 @@ const submitBlog = catchAsync(async (req, res) => {
     comments: 2,
     name: req.body.name,
     userImg: req.body.userImg,
-    categories: req.body.categories
+    categories: req.body.categories,
+    archive: req.body.exampleRadios
   });
   res.status(201);
   res.redirect("home/1");
@@ -192,6 +195,7 @@ const blogId = catchAsync(async (req, res, next) => {
         currentHome: "",
         currentCreate: "",
         currentContact: "",
+        currentArchive: "",
         title1: "",
         title2: "Blog details",
         title3: "Home-Blog Details",
@@ -208,6 +212,7 @@ const contactPage = catchAsync(async (req, res) => {
     currentBlogDetails: "",
     currentCreate: "",
     currentContact: "current",
+    currentArchive: "",
     title1: "",
     title2: "Contact Us",
     title3: "Contact Details",
@@ -217,10 +222,55 @@ const contactPage = catchAsync(async (req, res) => {
 // Archive 
 
 const archive = catchAsync(async (req, res) => {
-  await Archive.insertMany({
-    archiveItems: req.params.blogId
+  //Toggle the value from Yes to no ot vice versa 
+  await Blog.findByIdAndUpdate(req.params.blogId, {
+    archive: "true"
   })
   res.redirect("back")
+})
+
+// Remove Archive
+const removeArchive = catchAsync(async (req, res) => {
+  //Toggle the value from Yes to no ot vice versa 
+  await Blog.findByIdAndUpdate(req.params.blogId, {
+    archive: "false"
+  })
+  res.redirect("back")
+})
+
+
+// Archive content
+
+const archiveContent = catchAsync(async (req, res) => {
+  const popular = await Blog.find().sort(
+    [
+      ['likes', -1]
+    ])
+  const perPage = 5;
+  const page = req.params.page || 1
+  await Blog.find({
+    archive: "true"
+  }).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
+    Blog.count().exec(function (err, count) {
+      if (err) return next(err)
+      res.render("archive", {
+        popular,
+        count,
+        products,
+        current: page,
+        pages: Math.ceil(count / perPage),
+        today,
+        currentBlogDetails: "",
+        currentHome: "",
+        currentCreate: "",
+        currentContact: "",
+        currentArchive: "current",
+        title1: "",
+        title2: "Archive details",
+        title3: "",
+      });
+    })
+  })
 })
 
 // Display error page if URL not found
@@ -242,5 +292,7 @@ module.exports = {
   numberOfLikes,
   typeCategories,
   contactPage,
-  archive
+  archive,
+  archiveContent,
+  removeArchive
 };

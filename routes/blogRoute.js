@@ -11,7 +11,9 @@ const {
     numberOfLikes,
     typeCategories,
     contactPage,
-    archive
+    archive,
+    archiveContent,
+    removeArchive
 } = require('../controller/blogController');
 
 const blogRoute = express.Router();
@@ -41,6 +43,10 @@ blogRoute.route('/categories/:type/:page').get(typeCategories)
 blogRoute.route('/contact').get(contactPage)
 
 blogRoute.route('/blog/archive/:blogId').post(archive)
+
+blogRoute.route('/archive').get(archiveContent)
+
+blogRoute.route('/blog/removeArchive/:blogId').post(removeArchive)
 
 blogRoute.route('*').all(error);
 

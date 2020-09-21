@@ -17,6 +17,9 @@ const blogSchema = new mongoose.Schema({
   passage: {
     type: String,
   },
+  archive: {
+    type: String,
+  },
   role: {
     type: String,
     default: "user",
