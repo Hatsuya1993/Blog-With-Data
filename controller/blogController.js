@@ -109,6 +109,7 @@ const blogDetails = async (req, res) => {
 
 // Form to create new blog 
 const createBlog = catchAsync(async (req, res) => {
+  console.log(req.body)
   res.render("create", {
     currentCreate: "current",
     currentBlogDetails: "",
@@ -120,6 +121,7 @@ const createBlog = catchAsync(async (req, res) => {
 
 // Submit a new blog
 const submitBlog = catchAsync(async (req, res) => {
+  console.log(req.body)
   await Blog.create({
     title: req.body.title,
     passage: req.body.passage,
@@ -130,7 +132,7 @@ const submitBlog = catchAsync(async (req, res) => {
     name: req.body.name,
     userImg: req.body.userImg,
     categories: req.body.categories,
-    archive: req.body.exampleRadios
+    archive: req.body.exampleRadios,
   });
   res.status(201);
   res.redirect("home/1");

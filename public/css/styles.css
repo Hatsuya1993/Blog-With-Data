@@ -156,6 +156,10 @@ body {
     color: rgb(255, 153, 7) !important;
 }
 
+.option-color {
+    background-color: #f9f9ff;
+}
+
 /* options */
 
 /* blogInfo */

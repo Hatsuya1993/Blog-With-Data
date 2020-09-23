@@ -16,30 +16,80 @@
             <input type="text" class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Role (User, Guide, Lead-Guide, Admin)</label>
-            <input type="text" class="form-control" name="Role" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <!-- <label for="exampleInputEmail1">Role (User, Guide, Lead-Guide, Admin)</label>
+            <input type="text" class="form-control" name="Role" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            <!--  -->
+            <!-- <label for="exampleInputEmail1">Role (User, Guide, Lead-Guide, Admin)</label>
+            <select id="exampleInputEmail1" class="form-control">
+                <option selected>Open this select menu</option>
+                <option name="role" value="User">User</option>
+                <option name="role" value="Guide">Guide</option>
+                <option name="role" value="Lead-Guide">Lead-Guide</option>
+                <option name="role" value="Admin">Admin</option>
+            </select> -->
+            <span>Role</span>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="user" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    User
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="guide" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Guide
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="lead-Guide" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Lead-Guide
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="admin" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Admin
+                </label>
+            </div>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Image Link</label>
             <input type="url" class="form-control" name="image" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Categories (technology, holiday, education, others)</label>
+            <!-- <label for="exampleInputEmail1">Categories (technology, holiday, education, others)</label>
             <input type="text" class="form-control" name="categories" id="exampleInputEmail1"
-                aria-describedby="emailHelp">
-        </div>
-        <label for="form-check">Archive</label>
-        <div class="form-check" id="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="true" checked>
-            <label class="form-check-label" for="exampleRadios1">
-                Yes
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="false">
-            <label class="form-check-label" for="exampleRadios2">
-                No
-            </label>
+                aria-describedby="emailHelp"> -->
+            <span>Categories</span>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="categories" id="exampleRadios1" value="technology"
+                    checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Technology
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="categories" id="exampleRadios1" value="holiday"
+                    checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Holiday
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="categories" id="exampleRadios1" value="education"
+                    checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Education
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="categories" id="exampleRadios1" value="others"
+                    checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Others
+                </label>
+            </div>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1"> Passage</label>

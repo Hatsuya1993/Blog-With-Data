@@ -19,6 +19,7 @@ const blogSchema = new mongoose.Schema({
   },
   archive: {
     type: String,
+    default: "false"
   },
   role: {
     type: String,
@@ -59,7 +60,7 @@ const blogSchema = new mongoose.Schema({
   }],
   categories: {
     type: String,
-    required: [true, "Please provide categories"],
+    default: "others",
     enum: ["technology", "holiday", "education", "others"]
   }
 })
