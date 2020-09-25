@@ -323,7 +323,3 @@ module.exports = {
   removeArchive,
   normal,
 };
-
-// "start": "node server.js",
-// "test": "echo \"Error: no test specified\" && exit 1",
-// "dev": "nodemon server.js -e ejs,js"
