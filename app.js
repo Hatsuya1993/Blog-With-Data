@@ -16,6 +16,6 @@ app.use(
 
 const blogRoute = require('./routes/blogRoute')
 
-app.use('', blogRoute);
+app.use('/', blogRoute);
 
 module.exports = app;
