@@ -1,55 +1,58 @@
-const express = require('express');
+const express = require("express");
 
 const {
-    createBlog,
-    home,
-    blogDetails,
-    error,
-    submitBlog,
-    blogId,
-    submitComment,
-    numberOfLikes,
-    typeCategories,
-    contactPage,
-    archive,
-    archiveContent,
-    removeArchive
-} = require('../controller/blogController');
+  createBlog,
+  home,
+  blogDetails,
+  error,
+  submitBlog,
+  blogId,
+  submitComment,
+  numberOfLikes,
+  typeCategories,
+  contactPage,
+  archive,
+  archiveContent,
+  removeArchive,
+  normal,
+} = require("../controller/blogController");
 
 const blogRoute = express.Router();
 
-blogRoute.route('/home/:page').get(home);
+blogRoute.route("/").get(normal);
 
-blogRoute.route('/blog/:blogId').get(blogId)
+blogRoute.route("/home/:page").get(home);
 
-blogRoute.route('/blog/likes/:blogId').post(numberOfLikes)
+blogRoute.route("/blog/:blogId").get(blogId);
 
-blogRoute.route('/blog/:blogId/:page').get(blogId)
+blogRoute.route("/blog/likes/:blogId").post(numberOfLikes);
 
-blogRoute.route('/create').get(createBlog);
+blogRoute.route("/blog/:blogId/:page").get(blogId);
 
-blogRoute.route('/create').post(submitBlog)
+blogRoute.route("/create").get(createBlog);
 
-blogRoute.route('/blog/comment/:blogId').post(submitComment);
+blogRoute.route("/create").post(submitBlog);
 
-blogRoute.route('/blogDetails').get(blogDetails);
+blogRoute.route("/blog/comment/:blogId").post(submitComment);
 
-blogRoute.route('/comment').post(submitComment)
+blogRoute.route("/blogDetails").get(blogDetails);
 
-blogRoute.route('/categories/:type').get(typeCategories)
+blogRoute.route("/comment").post(submitComment);
 
-blogRoute.route('/categories/:type/:page').get(typeCategories)
+blogRoute.route("/categories/:type").get(typeCategories);
 
-blogRoute.route('/contact').get(contactPage)
+blogRoute.route("/categories/:type/:page").get(typeCategories);
 
-blogRoute.route('/blog/archive/:blogId').post(archive)
+blogRoute.route("/contact").get(contactPage);
 
-blogRoute.route('/archive').get(archiveContent)
+blogRoute.route("/blog/archive/:blogId").post(archive);
 
-blogRoute.route('/archive/:page').get(archiveContent)
+blogRoute.route("/archive").get(archiveContent);
 
-blogRoute.route('/blog/removeArchive/:blogId').post(removeArchive)
+blogRoute.route("/archive/:page").get(archiveContent);
 
-blogRoute.route('*').all(error);
+blogRoute.route("/blog/removeArchive/:blogId").post(removeArchive);
+
+blogRoute.route("*").all(error);
 
 module.exports = blogRoute;

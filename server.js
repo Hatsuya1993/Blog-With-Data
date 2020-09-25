@@ -39,7 +39,7 @@ const port = process.env.PORT || "3000";
 //   port = 3000;
 // }
 
-const server = app.set(port, () => {
+const server = app.listen(port, () => {
   console.log("Server started");
 });
 

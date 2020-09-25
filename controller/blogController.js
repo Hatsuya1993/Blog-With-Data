@@ -301,6 +301,10 @@ const error = async (req, res) => {
   });
 };
 
+const normal = async (req, res) => {
+  res.redirect('/home/1')
+}
+
 module.exports = {
   createBlog,
   home,
@@ -314,5 +318,6 @@ module.exports = {
   contactPage,
   archive,
   archiveContent,
-  removeArchive
+  removeArchive,
+  normal
 };
