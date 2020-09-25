@@ -1,6 +1,6 @@
 const Blog = require("../models/createBlog");
 
-const Comment = require("../models/createComment")
+const Comment = require("../models/createComment");
 
 const AppError = require("../utils/appError");
 
@@ -18,121 +18,120 @@ today = dd + "/" + mm + "/" + yyyy;
 
 // Display home page
 const home = catchAsync(async (req, res, next) => {
-  const latest = await Blog.find().sort([
-    ['date', -1]
-  ]).limit(10);
-  const popular = await Blog.find().sort([
-    ['likes', -1]
-  ]).limit(3);
+  const latest = await Blog.find()
+    .sort([["date", -1]])
+    .limit(10);
+  const popular = await Blog.find()
+    .sort([["likes", -1]])
+    .limit(3);
   const perPage = 3;
   const page = req.params.page || 1;
-  await Blog.find().sort([
-    ['date', -1]
-  ]).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
-    Blog.count().exec(function (err, count) {
-      if (err) return next(err)
-      res.render("home", {
-        popular,
-        latest,
-        today,
-        currentHome: "current",
-        currentCreate: "",
-        currentContact: "",
-        currentArchive: "",
-        currentCat: "",
-        title1: "Tours & Travels",
-        title2: "Amazing places on earth",
-        title3: today,
-        products,
-        current: page,
-        pages: Math.ceil(count / perPage)
+  await Blog.find()
+    .sort([["date", -1]])
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec(function (err, products) {
+      Blog.count().exec(function (err, count) {
+        if (err) return next(err);
+        res.render("home", {
+          popular,
+          latest,
+          today,
+          currentHome: "current",
+          currentCreate: "",
+          currentContact: "",
+          currentArchive: "",
+          currentCat: "",
+          title1: "Tours & Travels",
+          title2: "Amazing places on earth",
+          title3: today,
+          products,
+          current: page,
+          pages: Math.ceil(count / perPage),
+        });
       });
-    })
-  });
+    });
 });
 
 // Diplay specific blog
 const blogId = catchAsync(async (req, res, next) => {
-  const findBlog = await Blog.findById(
-    req.params.blogId,
-  );
-  const popular = await Blog.find().sort([
-    ['likes', -1]
-  ]).limit(3);
+  const findBlog = await Blog.findById(req.params.blogId);
+  const popular = await Blog.find()
+    .sort([["likes", -1]])
+    .limit(3);
   const perPage = 5;
-  let {
-    blogId
-  } = req.params;
-  const page = req.params.page || 1
+  let { blogId } = req.params;
+  const page = req.params.page || 1;
   await Comment.find({
-    blogComment: req.params.blogId
-  }).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
-    Comment.count().exec(function (err, count) {
-      if (err) return next(err)
-      res.render("blogDetails", {
-        popular,
-        blogId,
-        count,
-        products,
-        current: page,
-        pages: Math.ceil(count / perPage),
-        today,
-        currentHome: "",
-        currentCreate: "",
-        currentContact: "",
-        currentArchive: "",
-        currentCat: "",
-        title1: "",
-        title2: "Blog details",
-        title3: "Home-Blog Details",
-        findBlog
-      });
-    })
+    blogComment: req.params.blogId,
   })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec(function (err, products) {
+      Comment.count().exec(function (err, count) {
+        if (err) return next(err);
+        res.render("blogDetails", {
+          popular,
+          blogId,
+          count,
+          products,
+          current: page,
+          pages: Math.ceil(count / perPage),
+          today,
+          currentHome: "",
+          currentCreate: "",
+          currentContact: "",
+          currentArchive: "",
+          currentCat: "",
+          title1: "",
+          title2: "Blog details",
+          title3: "Home-Blog Details",
+          findBlog,
+        });
+      });
+    });
 });
 
 // Display categories page
 const typeCategories = catchAsync(async (req, res, next) => {
-  const popular = await Blog.find().sort([
-    ['likes', -1]
-  ]).limit(3);
-  const {
-    type
-  } = req.params
+  const popular = await Blog.find()
+    .sort([["likes", -1]])
+    .limit(3);
+  const { type } = req.params;
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find({
-    categories: req.params.type
-  }).sort([
-    ['date', -1]
-  ]).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
-    Blog.count().exec(function (err, count) {
-      if (err) return next(err)
-      res.render("typeCategories", {
-        type,
-        popular,
-        today,
-        currentHome: "",
-        currentCreate: "",
-        currentContact: "",
-        currentArchive: "",
-        currentCat: "current",
-        title1: "",
-        title2: req.params.type,
-        title3: today,
-        products,
-        current: page,
-        pages: Math.ceil(count / perPage)
+    categories: req.params.type,
+  })
+    .sort([["date", -1]])
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec(function (err, products) {
+      Blog.count().exec(function (err, count) {
+        if (err) return next(err);
+        res.render("typeCategories", {
+          type,
+          popular,
+          today,
+          currentHome: "",
+          currentCreate: "",
+          currentContact: "",
+          currentArchive: "",
+          currentCat: "current",
+          title1: "",
+          title2: req.params.type,
+          title3: today,
+          products,
+          current: page,
+          pages: Math.ceil(count / perPage),
+        });
       });
-    })
-  });
+    });
 });
 
 // Display page for specific page
 const blogDetails = async (req, res) => {
-  const findBlog = await Blog.findById(
-    req.params.blogId,
-  );
+  const findBlog = await Blog.findById(req.params.blogId);
   res.render("blogDetails", {
     today,
     currentHome: "",
@@ -147,7 +146,7 @@ const blogDetails = async (req, res) => {
   });
 };
 
-// Form to create new blog 
+// Form to create new blog
 const createBlog = catchAsync(async (req, res) => {
   res.render("create", {
     currentCreate: "current",
@@ -178,16 +177,19 @@ const submitBlog = catchAsync(async (req, res) => {
 
 // Add a new like
 const numberOfLikes = catchAsync(async (req, res) => {
-  await Blog.update({
-    _id: req.params.blogId
-  }, {
-    $inc: {
-      "likes": 1
+  await Blog.update(
+    {
+      _id: req.params.blogId,
+    },
+    {
+      $inc: {
+        likes: 1,
+      },
     }
-  });
+  );
   res.status(201);
-  res.redirect("back")
-})
+  res.redirect("back");
+});
 
 // Submit the comment for the specific blog
 const submitComment = catchAsync(async (req, res) => {
@@ -200,7 +202,7 @@ const submitComment = catchAsync(async (req, res) => {
   //       email: req.body.email,
   //       subject: req.body.subject,
   //       message: req.body.message,
-  //     } //inserted data is the object to be inserted 
+  //     } //inserted data is the object to be inserted
   //   }
   // });
   await Comment.create({
@@ -209,17 +211,20 @@ const submitComment = catchAsync(async (req, res) => {
     email: req.body.email,
     subject: req.body.subject,
     message: req.body.message,
-  })
-  await Blog.update({
-    _id: req.params.blogId
-  }, {
-    $inc: {
-      blogComments: 1
+  });
+  await Blog.update(
+    {
+      _id: req.params.blogId,
+    },
+    {
+      $inc: {
+        blogComments: 1,
+      },
     }
-  })
+  );
   res.status(201);
-  res.redirect("back")
-})
+  res.redirect("back");
+});
 
 // Display contact page
 const contactPage = catchAsync(async (req, res) => {
@@ -232,66 +237,63 @@ const contactPage = catchAsync(async (req, res) => {
     title1: "",
     title2: "Contact Us",
     title3: "Contact Details",
-  })
+  });
 });
 
-// Archive 
+// Archive
 
 const archive = catchAsync(async (req, res) => {
-  //Toggle the value from Yes to no ot vice versa 
+  //Toggle the value from Yes to no ot vice versa
   await Blog.findByIdAndUpdate(req.params.blogId, {
-    archive: "true"
-  })
-  res.redirect("back")
-})
+    archive: "true",
+  });
+  res.redirect("back");
+});
 
 // Remove Archive
 const removeArchive = catchAsync(async (req, res) => {
-  //Toggle the value from Yes to no ot vice versa 
+  //Toggle the value from Yes to no ot vice versa
   await Blog.findByIdAndUpdate(req.params.blogId, {
-    archive: "false"
-  })
-  res.redirect("back")
-})
-
+    archive: "false",
+  });
+  res.redirect("back");
+});
 
 // Archive content
 
 const archiveContent = catchAsync(async (req, res) => {
-  const {
-    type
-  } = req.params
-  const popular = await Blog.find().sort(
-    [
-      ['likes', -1]
-    ])
+  const { type } = req.params;
+  const popular = await Blog.find().sort([["likes", -1]]);
   const perPage = 3;
-  const page = req.params.page || 1
+  const page = req.params.page || 1;
   await Blog.find({
-    archive: "true"
-  }).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
-    Blog.count().exec(function (err, count) {
-      if (err) return next(err)
-      res.render("archive", {
-        type,
-        popular,
-        count,
-        products,
-        current: page,
-        pages: Math.ceil(count / perPage),
-        today,
-        currentHome: "",
-        currentCreate: "",
-        currentContact: "",
-        currentArchive: "current",
-        currentCat: "",
-        title1: "",
-        title2: "Archive details",
-        title3: "",
-      });
-    })
+    archive: "true",
   })
-})
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec(function (err, products) {
+      Blog.count().exec(function (err, count) {
+        if (err) return next(err);
+        res.render("archive", {
+          type,
+          popular,
+          count,
+          products,
+          current: page,
+          pages: Math.ceil(count / perPage),
+          today,
+          currentHome: "",
+          currentCreate: "",
+          currentContact: "",
+          currentArchive: "current",
+          currentCat: "",
+          title1: "",
+          title2: "Archive details",
+          title3: "",
+        });
+      });
+    });
+});
 
 // Display error page if URL not found
 const error = async (req, res) => {
@@ -302,8 +304,8 @@ const error = async (req, res) => {
 };
 
 const normal = async (req, res) => {
-  res.redirect('/home/1')
-}
+  res.redirect("/home/1");
+};
 
 module.exports = {
   createBlog,
@@ -319,5 +321,9 @@ module.exports = {
   archive,
   archiveContent,
   removeArchive,
-  normal
+  normal,
 };
+
+// "start": "node server.js",
+// "test": "echo \"Error: no test specified\" && exit 1",
+// "dev": "nodemon server.js -e ejs,js"
