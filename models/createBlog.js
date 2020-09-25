@@ -52,12 +52,10 @@ const blogSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  blogComments: [{
-    name: String,
-    email: String,
-    subject: String,
-    message: String,
-  }],
+  blogComments: {
+    type: Number,
+    default: 0
+  },
   categories: {
     type: String,
     default: "others",

@@ -38,7 +38,7 @@
             <div class="d-flex">
                 <i class="far fa-comment px-3"></i>
                 <p>
-                    <%=count%> Comments
+                    <%=products.length%> Comments
                 </p>
             </div>
             <div class="d-flex w-25 justify-content-around">
@@ -50,18 +50,18 @@
         </div>
         <hr>
         <div>
-            <h4><%=findBlog.blogComments.length%> Comments</h4>
+            <h4><%=products.length%> Comments</h4>
         </div>
-        <%for (let i = 0; i < findBlog.blogComments.length; i++){%>
+        <%for (let i = 0; i < products.length; i++){%>
         <div class="d-flex py-4 justify-content-between">
             <div class="d-flex">
                 <img class="blogInfo-profile-pic h-75"
                     src="https://images.pexels.com/photos/2092709/pexels-photo-2092709.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                     alt="">
                 <div class="px-3">
-                    <p><%=findBlog.blogComments[i].name%></p>
+                    <p><%=products[i].name%></p>
                     <p class="text-uppercase"></p>
-                    <p class="text-uppercase"><%=findBlog.blogComments[i].message%>
+                    <p class="text-uppercase"><%=products[i].message%>
                     </p>
                 </div>
             </div>

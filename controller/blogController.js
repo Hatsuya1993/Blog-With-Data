@@ -51,6 +51,46 @@ const home = catchAsync(async (req, res, next) => {
   });
 });
 
+// Diplay specific blog
+const blogId = catchAsync(async (req, res, next) => {
+  const findBlog = await Blog.findById(
+    req.params.blogId,
+  );
+  const popular = await Blog.find().sort([
+    ['likes', -1]
+  ]).limit(3);
+  const perPage = 5;
+  let {
+    blogId
+  } = req.params;
+  const page = req.params.page || 1
+  await Comment.find({
+    blogComment: req.params.blogId
+  }).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
+    Comment.count().exec(function (err, count) {
+      if (err) return next(err)
+      res.render("blogDetails", {
+        popular,
+        blogId,
+        count,
+        products,
+        current: page,
+        pages: Math.ceil(count / perPage),
+        today,
+        currentBlogDetails: "current",
+        currentHome: "",
+        currentCreate: "",
+        currentContact: "",
+        currentArchive: "",
+        title1: "",
+        title2: "Blog details",
+        title3: "Home-Blog Details",
+        findBlog
+      });
+    })
+  })
+});
+
 // Display categories page
 const typeCategories = catchAsync(async (req, res, next) => {
   const popular = await Blog.find().sort([
@@ -109,7 +149,6 @@ const blogDetails = async (req, res) => {
 
 // Form to create new blog 
 const createBlog = catchAsync(async (req, res) => {
-  console.log(req.body)
   res.render("create", {
     currentCreate: "current",
     currentBlogDetails: "",
@@ -121,7 +160,6 @@ const createBlog = catchAsync(async (req, res) => {
 
 // Submit a new blog
 const submitBlog = catchAsync(async (req, res) => {
-  console.log(req.body)
   await Blog.create({
     title: req.body.title,
     passage: req.body.passage,
@@ -153,59 +191,35 @@ const numberOfLikes = catchAsync(async (req, res) => {
 
 // Submit the comment for the specific blog
 const submitComment = catchAsync(async (req, res) => {
+  // await Blog.update({
+  //   _id: req.params.blogId
+  // }, {
+  //   $push: {
+  //     blogComments: {
+  //       name: req.body.name,
+  //       email: req.body.email,
+  //       subject: req.body.subject,
+  //       message: req.body.message,
+  //     } //inserted data is the object to be inserted 
+  //   }
+  // });
+  await Comment.create({
+    blogComment: req.params.blogId,
+    name: req.body.name,
+    email: req.body.email,
+    subject: req.body.subject,
+    message: req.body.message,
+  })
   await Blog.update({
     _id: req.params.blogId
   }, {
-    $push: {
-      blogComments: {
-        name: req.body.name,
-        email: req.body.email,
-        subject: req.body.subject,
-        message: req.body.message,
-      } //inserted data is the object to be inserted 
+    $inc: {
+      blogComments: 1
     }
-  });
+  })
   res.status(201);
   res.redirect("back")
 })
-
-// Diplay specific blog
-const blogId = catchAsync(async (req, res, next) => {
-  const findBlog = await Blog.findById(
-    req.params.blogId,
-  );
-  const popular = await Blog.find().sort([
-    ['likes', -1]
-  ]).limit(3);
-  const perPage = 5;
-  let {
-    blogId
-  } = req.params;
-  const page = req.params.page || 1
-  await Comment.find({}).skip((perPage * page) - perPage).limit(perPage).exec(function (err, products) {
-    Comment.count().exec(function (err, count) {
-      if (err) return next(err)
-      res.render("blogDetails", {
-        popular,
-        blogId,
-        count,
-        products,
-        current: page,
-        pages: Math.ceil(count / perPage),
-        today,
-        currentBlogDetails: "current",
-        currentHome: "",
-        currentCreate: "",
-        currentContact: "",
-        currentArchive: "",
-        title1: "",
-        title2: "Blog details",
-        title3: "Home-Blog Details",
-        findBlog
-      });
-    })
-  })
-});
 
 // Display contact page
 const contactPage = catchAsync(async (req, res) => {

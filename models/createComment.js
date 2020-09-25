@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema({
+    blogComment: {
+        type: String
+    },
     name: {
         type: String,
         required: [true, "Please provide your name"],
