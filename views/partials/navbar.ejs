@@ -12,12 +12,15 @@
                 <a class="nav-link <%=currentHome%>" href="/home/1">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/archive">Archive</a>
+                <a class="nav-link <%=currentArchive%>" href="/archive">Archive</a>
             </li>
             <li class="nav-item">
-                <!-- <a class="nav-link <%=currentContact%>" href="/contact">Contact</a> -->
+                <a class="nav-link <%=currentContact%>" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item">
+
                 <div class="dropdown">
-                    <a onclick="myFunction()" class="dropbtn my-auto nav-link">Categories</a>
+                    <a onclick="myFunction()" class="dropbtn my-auto nav-link <%=currentCat%>">Categories</a>
                     <div id="myDropdown" class="dropdown-content">
                         <a href="/categories/technology">Technology</a>
                         <a href="/categories/holiday">Holiday</a>

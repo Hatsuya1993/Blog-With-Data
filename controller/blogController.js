@@ -36,10 +36,10 @@ const home = catchAsync(async (req, res, next) => {
         latest,
         today,
         currentHome: "current",
-        currentBlogDetails: "",
         currentCreate: "",
         currentContact: "",
         currentArchive: "",
+        currentCat: "",
         title1: "Tours & Travels",
         title2: "Amazing places on earth",
         title3: today,
@@ -77,11 +77,11 @@ const blogId = catchAsync(async (req, res, next) => {
         current: page,
         pages: Math.ceil(count / perPage),
         today,
-        currentBlogDetails: "current",
         currentHome: "",
         currentCreate: "",
         currentContact: "",
         currentArchive: "",
+        currentCat: "",
         title1: "",
         title2: "Blog details",
         title3: "Home-Blog Details",
@@ -112,17 +112,17 @@ const typeCategories = catchAsync(async (req, res, next) => {
         type,
         popular,
         today,
-        currentHome: "current",
-        currentBlogDetails: "",
+        currentHome: "",
         currentCreate: "",
         currentContact: "",
         currentArchive: "",
+        currentCat: "current",
         title1: "",
         title2: req.params.type,
         title3: today,
         products,
         current: page,
-        pages: Math.floor(count / perPage)
+        pages: Math.ceil(count / perPage)
       });
     })
   });
@@ -135,11 +135,11 @@ const blogDetails = async (req, res) => {
   );
   res.render("blogDetails", {
     today,
-    currentBlogDetails: "current",
     currentHome: "",
     currentCreate: "",
     currentContact: "",
     currentArchive: "",
+    currentCat: "",
     title1: "",
     title2: "Blog details",
     title3: "Home-Blog Details",
@@ -151,10 +151,10 @@ const blogDetails = async (req, res) => {
 const createBlog = catchAsync(async (req, res) => {
   res.render("create", {
     currentCreate: "current",
-    currentBlogDetails: "",
     currentHome: "",
     currentContact: "",
     currentArchive: "",
+    currentCat: "",
   });
 });
 
@@ -225,10 +225,10 @@ const submitComment = catchAsync(async (req, res) => {
 const contactPage = catchAsync(async (req, res) => {
   res.render("contactPage", {
     currentHome: "",
-    currentBlogDetails: "",
     currentCreate: "",
     currentContact: "current",
     currentArchive: "",
+    currentCat: "",
     title1: "",
     title2: "Contact Us",
     title3: "Contact Details",
@@ -258,11 +258,14 @@ const removeArchive = catchAsync(async (req, res) => {
 // Archive content
 
 const archiveContent = catchAsync(async (req, res) => {
+  const {
+    type
+  } = req.params
   const popular = await Blog.find().sort(
     [
       ['likes', -1]
     ])
-  const perPage = 5;
+  const perPage = 3;
   const page = req.params.page || 1
   await Blog.find({
     archive: "true"
@@ -270,17 +273,18 @@ const archiveContent = catchAsync(async (req, res) => {
     Blog.count().exec(function (err, count) {
       if (err) return next(err)
       res.render("archive", {
+        type,
         popular,
         count,
         products,
         current: page,
         pages: Math.ceil(count / perPage),
         today,
-        currentBlogDetails: "",
         currentHome: "",
         currentCreate: "",
         currentContact: "",
         currentArchive: "current",
+        currentCat: "",
         title1: "",
         title2: "Archive details",
         title3: "",

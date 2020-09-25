@@ -46,6 +46,8 @@ blogRoute.route('/blog/archive/:blogId').post(archive)
 
 blogRoute.route('/archive').get(archiveContent)
 
+blogRoute.route('/archive/:page').get(archiveContent)
+
 blogRoute.route('/blog/removeArchive/:blogId').post(removeArchive)
 
 blogRoute.route('*').all(error);
