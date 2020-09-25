@@ -32,14 +32,14 @@ mongoose
 
 // Server
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || "3000";
 
 // let port = process.env.PORT;
 // if (port == null || port === "") {
 //   port = 3000;
 // }
 
-const server = app.listen(port, () => {
+const server = app.set(port, () => {
   console.log("Server started");
 });
 
