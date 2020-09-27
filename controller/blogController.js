@@ -19,15 +19,21 @@ today = dd + "/" + mm + "/" + yyyy;
 // Display home page
 const home = catchAsync(async (req, res, next) => {
   const latest = await Blog.find()
-    .sort([["date", -1]])
+    .sort([
+      ["date", -1]
+    ])
     .limit(10);
   const popular = await Blog.find()
-    .sort([["likes", -1]])
+    .sort([
+      ["likes", -1]
+    ])
     .limit(3);
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find()
-    .sort([["date", -1]])
+    .sort([
+      ["date", -1]
+    ])
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec(function (err, products) {
@@ -57,14 +63,18 @@ const home = catchAsync(async (req, res, next) => {
 const blogId = catchAsync(async (req, res, next) => {
   const findBlog = await Blog.findById(req.params.blogId);
   const popular = await Blog.find()
-    .sort([["likes", -1]])
+    .sort([
+      ["likes", -1]
+    ])
     .limit(3);
   const perPage = 5;
-  let { blogId } = req.params;
+  let {
+    blogId
+  } = req.params;
   const page = req.params.page || 1;
   await Comment.find({
-    blogComment: req.params.blogId,
-  })
+      blogComment: req.params.blogId,
+    })
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec(function (err, products) {
@@ -95,15 +105,21 @@ const blogId = catchAsync(async (req, res, next) => {
 // Display categories page
 const typeCategories = catchAsync(async (req, res, next) => {
   const popular = await Blog.find()
-    .sort([["likes", -1]])
+    .sort([
+      ["likes", -1]
+    ])
     .limit(3);
-  const { type } = req.params;
+  const {
+    type
+  } = req.params;
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find({
-    categories: req.params.type,
-  })
-    .sort([["date", -1]])
+      categories: req.params.type,
+    })
+    .sort([
+      ["date", -1]
+    ])
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec(function (err, products) {
@@ -177,16 +193,13 @@ const submitBlog = catchAsync(async (req, res) => {
 
 // Add a new like
 const numberOfLikes = catchAsync(async (req, res) => {
-  await Blog.update(
-    {
-      _id: req.params.blogId,
+  await Blog.update({
+    _id: req.params.blogId,
+  }, {
+    $inc: {
+      likes: 1,
     },
-    {
-      $inc: {
-        likes: 1,
-      },
-    }
-  );
+  });
   res.status(201);
   res.redirect("back");
 });
@@ -212,16 +225,13 @@ const submitComment = catchAsync(async (req, res) => {
     subject: req.body.subject,
     message: req.body.message,
   });
-  await Blog.update(
-    {
-      _id: req.params.blogId,
+  await Blog.update({
+    _id: req.params.blogId,
+  }, {
+    $inc: {
+      blogComments: 1,
     },
-    {
-      $inc: {
-        blogComments: 1,
-      },
-    }
-  );
+  });
   res.status(201);
   res.redirect("back");
 });
@@ -262,13 +272,17 @@ const removeArchive = catchAsync(async (req, res) => {
 // Archive content
 
 const archiveContent = catchAsync(async (req, res) => {
-  const { type } = req.params;
-  const popular = await Blog.find().sort([["likes", -1]]);
+  const {
+    type
+  } = req.params;
+  const popular = await Blog.find().sort([
+    ["likes", -1]
+  ]);
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find({
-    archive: "true",
-  })
+      archive: "true",
+    })
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec(function (err, products) {
