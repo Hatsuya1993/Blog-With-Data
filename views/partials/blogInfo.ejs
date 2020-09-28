@@ -14,7 +14,7 @@
         <p class="text-secondary py-3">
             <%=findBlog.passage%>
         </p>
-        <div class="d-flex text-center w-50 mx-auto">
+        <div class="d-flex text-center w-75 mx-auto">
             <div class="container-fluid w-100">
                 <form action="/blog/archive/<%=findBlog._id%>" method="post">
                     <button type="submit" class="btn btn-dark">Archive</button>
@@ -23,6 +23,11 @@
             <div class="container-fluid w-100">
                 <form action="/blog/removeArchive/<%=findBlog._id%>" method="post">
                     <button type="submit" class="btn btn-dark">Remove Archive</button>
+                </form>
+            </div>
+            <div class="container-fluid w-100">
+                <form action="/blog/<%=findBlog._id%>" method="post">
+                    <button type="submit" class="btn btn-danger">Delete Blog</button>
                 </form>
             </div>
         </div>

@@ -15,6 +15,7 @@ const {
   archiveContent,
   removeArchive,
   normal,
+  deleteBlog
 } = require("../controller/blogController");
 
 const blogRoute = express.Router();
@@ -52,6 +53,8 @@ blogRoute.route("/archive").get(archiveContent);
 blogRoute.route("/archive/:page").get(archiveContent);
 
 blogRoute.route("/blog/removeArchive/:blogId").post(removeArchive);
+
+blogRoute.route("/blog/:blogId").post(deleteBlog);
 
 blogRoute.route("*").all(error);
 

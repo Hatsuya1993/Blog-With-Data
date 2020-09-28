@@ -309,6 +309,13 @@ const archiveContent = catchAsync(async (req, res) => {
     });
 });
 
+// Delete specific blog by id
+const deleteBlog = async (req, res) => {
+  const id = req.params.blogId
+  await Blog.findByIdAndDelete(id)
+  res.redirect("/home/1")
+}
+
 // Display error page if URL not found
 const error = async (req, res) => {
   res.render("errorPage", {
@@ -336,4 +343,5 @@ module.exports = {
   archiveContent,
   removeArchive,
   normal,
+  deleteBlog
 };
