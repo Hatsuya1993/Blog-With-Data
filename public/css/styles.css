@@ -256,3 +256,12 @@ body {
 }
 
 /* Dropdown */
+
+/* Contact Page */
+@media screen and (max-width: 600px) {
+    .contact-info {
+        flex-direction: column;
+    }
+}
+
+/* Contact Page */
