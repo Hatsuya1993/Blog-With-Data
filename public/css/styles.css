@@ -76,6 +76,14 @@ body {
     position: relative;
 }
 
+@media screen and (max-width: 600px) {
+    .post-img-content {
+        width: 100% !important;
+        margin: 0 auto;
+    }
+
+}
+
 .post-img-content {
     position: absolute;
     bottom: 0;
@@ -257,11 +265,13 @@ body {
 
 /* Dropdown */
 
+
 /* Contact Page */
 @media screen and (max-width: 600px) {
     .contact-info {
         flex-direction: column;
     }
+
 }
 
 /* Contact Page */
