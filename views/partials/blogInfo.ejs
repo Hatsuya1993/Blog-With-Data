@@ -14,7 +14,7 @@
         <p class="text-secondary py-3">
             <%=findBlog.passage%>
         </p>
-        <div class="d-flex text-center w-75 mx-auto">
+        <div class="d-flex text-center w-100 mx-auto">
             <div class="container-fluid w-100">
                 <form action="/blog/archive/<%=findBlog._id%>" method="post">
                     <button type="submit" class="btn btn-dark">Archive</button>
@@ -74,7 +74,7 @@
         </div>
         <% }%>
         <!-- Start Pagination -->
-        <div class="blogInfo-page-content w-25 mx-auto">
+        <div class="blogInfo-page-content w-100">
             <% if (pages > 0) { %>
             <ul class="pagination">
                 <% if (current == 1) { %>
