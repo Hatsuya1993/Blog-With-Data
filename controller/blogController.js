@@ -277,7 +277,7 @@ const archiveContent = catchAsync(async (req, res) => {
   } = req.params;
   const popular = await Blog.find().sort([
     ["likes", -1]
-  ]);
+  ]).limit(3);
   const perPage = 3;
   const page = req.params.page || 1;
   await Blog.find({
